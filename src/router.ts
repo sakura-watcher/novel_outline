@@ -8,11 +8,30 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   component: Home
+    // },
+    
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: '/manage',
+      name: 'manage',
+      component: () => import('@/views/Manage.vue'),
+      children:[
+        {
+          path: '/timeline',
+          name: 'timeline',
+            component: () => import('@/views/Timeline.vue')
+        },
+        {
+          path: '/',
+          name: 'personCard',
+          component: () => import('@/views/PersonCard.vue'),
+        },
+      ]
     },
+    
     {
       path: '/about',
       name: 'about',
