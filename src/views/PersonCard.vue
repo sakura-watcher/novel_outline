@@ -21,6 +21,9 @@
                                 main
                             </div>
                         </el-main>
+                        <el-footer>
+                            <el-button type="primary" @click="addOneMore">再整一个</el-button>
+                        </el-footer>
                     </el-container>
                 </el-aside>
                 
@@ -167,6 +170,10 @@ export default {
         changeHeadImg:function(index,preIndex){
             console.log("index:"+index+"   preIndex:"+preIndex)
             this.mainImg=this.headImgs[index]
+        },
+        addOneMore:function(){
+            console.log("addOneMore......")
+            this.$router.push("/personCardAdd")
         }
     }
 }

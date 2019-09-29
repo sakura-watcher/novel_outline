@@ -10,7 +10,7 @@
 						<el-menu-item index="timeline">时光轴</el-menu-item>
 						<el-menu-item index="storyline">故事线</el-menu-item>
 						<el-menu-item index="event">事件</el-menu-item>
-						<el-menu-item index="map">地图</el-menu-item>
+						<el-menu-item index="openMap">地图</el-menu-item>
 						<el-menu-item index="personRelation">人物关系链</el-menu-item>
 					</el-submenu>
 					<el-submenu index="3">

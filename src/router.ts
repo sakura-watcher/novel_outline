@@ -29,6 +29,16 @@ export default new Router({
           name: 'personCard',
           component: () => import('@/views/PersonCard.vue'),
         },
+        {
+          path: '/personCardAdd',
+          name: 'personCardAdd',
+          component: () => import('@/views/PersonCardAdd.vue'),
+        },
+        {
+          path: '/openMap',
+          name: 'openMap',
+          component: () => import('@/views/OpenMap.vue'),
+        },
       ]
     },
     
