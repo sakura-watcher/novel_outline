@@ -52,6 +52,7 @@ export default async(url = '', data = {}, type = 'GET', method = 'fetch') => {
 			let sendData = '';
 			if (type == 'POST') {
 				sendData = JSON.stringify(data);
+				console.log("senData:"+sendData)
 			}
 
 			requestObj.open(type, url, true);

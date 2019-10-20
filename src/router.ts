@@ -30,7 +30,7 @@ export default new Router({
           component: () => import('@/views/PersonCard.vue'),
         },
         {
-          path: '/personCardAdd',
+          path: '/PersonCardAdd',
           name: 'personCardAdd',
           component: () => import('@/views/PersonCardAdd.vue'),
         },
@@ -38,6 +38,16 @@ export default new Router({
           path: '/openMap',
           name: 'openMap',
           component: () => import('@/views/OpenMap.vue'),
+        },
+        {
+          path: '/space',
+          name: 'space',
+          component: () => import('@/views/Space.vue'),
+        },
+        {
+          path: '/SpaceDetail',
+          name: 'spaceDetail',
+          component: () => import('@/views/SpaceDetail.vue'),
         },
       ]
     },

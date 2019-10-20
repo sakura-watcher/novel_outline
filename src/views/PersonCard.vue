@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <el-container>
+    <div style="background-color='#dab679'">
+        <el-container >
             <el-header>人物卡片集</el-header>
             <el-container >
                 <!-- is="HeadImg" v-for="value in values" :key="value.id" :headValue="value.value" -->
@@ -194,8 +194,8 @@ export default {
             dialogSpeechVisible:false,
             dialogBiographyVisible:false,
             lableWidth:"50px",
-            addSp:{title:'',detail:''},
-            addBi:{sequence:null,title:'',detail:''},
+            addSp:{id:0,title:'',detail:''},
+            addBi:{id:0,sequence:null,title:'',detail:''},
         }
     },
     components:{
@@ -229,13 +229,33 @@ export default {
         },
         async addSpeech(){
             console.log("personId:"+this.personId)
+            this.addSp.id = this.personId
             console.log(this.addSp)
             const result = await addSpeech(this.addSp)
             console.log("result:"+result)
+            if(result){
+                console.log("true")
+                this.dialogSpeechVisible = false
+                const simPersonCard = await getPersonCardById({id:this.personId})
+                console.log(simPersonCard)
+                this.personCard = simPersonCard
+                this.personId = simPersonCard.id
+            }
         },
-        addBiography:function(){
+        async addBiography(){
             console.log("personId"+this.personId)
-
+            this.addBi.id = this.personId
+            console.log(this.addBi)
+            const result = await addBiography(this.addBi)
+            console.log("result:"+result)
+            if(result){
+                console.log("true")
+                this.dialogBiographyVisible = false
+                const simPersonCard = await getPersonCardById({id:this.personId})
+                console.log(simPersonCard)
+                this.personCard = simPersonCard
+                this.personId = simPersonCard.id
+            }
         },
     }
 }
@@ -283,7 +303,7 @@ export default {
   }
   .event-container{
       margin-top: 30px;
-      height: 530px;
+      /* height: 530px; */
   }
   .speech-detail{
       font-family:"楷体";
