@@ -49,6 +49,21 @@ export default new Router({
           name: 'spaceDetail',
           component: () => import('@/views/SpaceDetail.vue'),
         },
+        {
+          path: '/FrameworkCard',
+          name: 'frameworkCard',
+          component: () => import('@/views/FrameworkCard.vue'),
+        },
+        {
+          path: '/FrameworkDetail',
+          name: 'frameworkDetail',
+          component: () => import('@/views/FrameworkDetail.vue'),
+        },
+        {
+          path: '/SettingCard',
+          name: 'settingCard',
+          component: () => import('@/views/SettingCard.vue'),
+        },
       ]
     },
     

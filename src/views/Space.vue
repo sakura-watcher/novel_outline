@@ -6,9 +6,9 @@
                 :style="{backgroundImage: 'url(' + cate.backImg + ')'}">
                     <el-col :span="3" v-for="qh in cate.movieList" :key="qh.id" class="qh-co">
                         <el-card class="qh-card" body-style="padding: 0px;height:230px  ;background-color: #393979e0">
-                            <el-image @click="showSpaceDetail"
+                            <el-image @click="showSpaceDetail(qh.id)"
                                 class="qh-image"
-                                :src="qh.src" 
+                                :src="qh.headImg" 
                                 fit="fit">
                             </el-image>
                             <div class="qh-name" @click="showSpaceDetail">
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { findMovieTypeList } from "@/api/getData";
 export default {
     data(){
         return{
@@ -90,10 +91,20 @@ export default {
             
         }
     },
+    created(){
+        this.findMovieTypeList()
+    },
     methods: {
-        showSpaceDetail:function(){
+        async findMovieTypeList(){
+            const movieTypeList = await findMovieTypeList()
+            console.log("movieTypeList")
+            console.log(movieTypeList)
+            this.category = movieTypeList
+
+        },
+        showSpaceDetail:function(id){
             console.log("go to space detail ....")
-            this.$router.push("/SpaceDetail")
+            this.$router.push({name:"spaceDetail",params:{id:id}})
         }
     },
 }

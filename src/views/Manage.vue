@@ -17,7 +17,8 @@
 						<el-menu-item index="event">事件</el-menu-item>
 						<el-menu-item index="openMap">地图</el-menu-item>
 						<el-menu-item index="personRelation">人物关系链</el-menu-item>
-						<el-menu-item index="otherCard">人物关系链</el-menu-item>
+						<el-menu-item index="settingCard">图鉴</el-menu-item>
+
 					</el-submenu>
 					<!-- <el-submenu index="3">
 						<template slot="title"><i class="el-icon-warning" style="margin-left:-20%"></i>图鉴</template>
@@ -34,6 +35,7 @@
 					</el-submenu>
 					<el-submenu index="4">
 						<template slot="title"><i class="el-icon-help" style="margin-left:-20%"></i>解构区</template>
+						<el-menu-item index="frameworkCard">小说</el-menu-item>
 					</el-submenu>
 					<el-submenu index="5">
 						<template slot="title"><i class="el-icon-magic-stick" style="margin-left:-20%"></i>摘抄区</template>

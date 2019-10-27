@@ -2,7 +2,7 @@
     <div>
         <el-image 
             class="back-image"
-            src="https://images.unsplash.com/photo-1516410529446-2c777cb7366d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1834&q=80" 
+            :src="movieInfo.backImg" 
             fit="fit">
         </el-image>
         <div class="main-content">
@@ -10,7 +10,7 @@
                 <el-col :span="3">  
                     <el-image 
                         class="movie-image"
-                        :src="movieInfo.src" 
+                        :src="movieInfo.headImg" 
                         fit="fit">
                     </el-image>
                 </el-col>
@@ -33,7 +33,7 @@
             </el-row>
             <el-row >
                 <!-- <el-col :span="12"> -->
-                    <el-card class="sentence-card" v-for="sentence in sentenceList" :key="sentence.id">
+                    <el-card class="sentence-card" v-for="sentence in movieInfo.sentenceList" :key="sentence.id">
                         <div>
                         <el-row class="content-row">
                             <span class="symbol-left">“</span>
@@ -92,35 +92,47 @@
 
 
 <script>
+import { findMovieDetail } from "@/api/getData";
 export default {
     data(){
         return{
             movieInfo:{
                 id:1,
                 name:"权力的游戏",
-                src:"https://pic4.zhimg.com/80/v2-9d84e236dc8cfd56b5b1317819366fe7_hd.jpg",
+                headImg:"https://pic4.zhimg.com/80/v2-9d84e236dc8cfd56b5b1317819366fe7_hd.jpg",
+                backImg:"https://images.unsplash.com/photo-1516410529446-2c777cb7366d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1834&q=80",
                 mainRole:["艾丽娅","布兰","囧","詹姆","丹妮莉丝"],
-                briefIntro:"龙与狼不得不说的故事"
+                briefIntro:"龙与狼不得不说的故事",
+                sentenceList:[
+                    {id:1,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。"},
+                    {id:2,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可"},
+                    {id:3,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:4,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:5,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:6,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:7,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:8,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:9,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
+                    {id:10,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"}
+                ]
             },
-            sentenceList:[
-                {id:1,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。"},
-                {id:2,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可"},
-                {id:3,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:4,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:5,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:6,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:7,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:8,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:9,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"},
-                {id:10,source:"奈德·史塔克",content:"当大雪降下，冷风吹起，独行狼死，群聚狼生。夏天时可以争吵，但一到冬天，我们便必须保卫彼此，互相取暖，共享力量。"}
-            ],
             tagStyle:["","success","info","warning","danger"],
             pagination:{
                 pageSize:10,total:10
             }
         }
     },
+    created(){
+        console.log("detail。。。")
+        console.log(this.$route.params.id)
+        this.initMovieDetail({id:this.$route.params.id})
+    },
     methods: {
+        async initMovieDetail(id){
+            const movieDetail = await findMovieDetail(id)
+            console.log(movieDetail)
+            this.movieInfo = movieDetail
+        },
         changePage:function(pageIndex){
             var size = this.pagination.pageSize
             console.log("pageIndex:"+pageIndex +"  size:"+size)
@@ -141,6 +153,7 @@ export default {
         color: #000000;
         background-color: #ffffff5e;
         font-weight: bold;
+        height: 200px;
     }
     .movie-info-row{    
         text-align: left;
