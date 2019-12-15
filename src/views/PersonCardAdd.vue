@@ -36,8 +36,8 @@
                 </el-row>
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item label="座右铭" class="form-lable">
-                            <el-input type="textarea" v-model="personForm.loveSelf" ></el-input>
+                        <el-form-item label="简介" class="form-lable">
+                            <el-input type="textarea" v-model="personForm.briefIntroduction" ></el-input>
                         </el-form-item>
                     </el-col>
                     
@@ -45,15 +45,18 @@
                 <el-row>
                     <el-col :span="6">
                         <el-form-item label="头像" class="form-lable">
+                            <!-- <el-input v-model="personForm.headPic" @blur="showHeadImg(personForm.headPic)" class="form-input"></el-input> -->
                             <el-upload
                             class="avatar-uploader"
                             action="https://jsonplaceholder.typicode.com/posts/"
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess"
                             :before-upload="beforeAvatarUpload">
-                            <img v-if="personForm.imageUrl" :src="personForm.imageUrl" class="avatar">
+                            <img v-if="personForm.imageUrlShow" :src="personForm.imageUrlShow" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
+                            <el-image v-if="personForm.headPicShow" :src="personForm.headPicShow" class="avatar">
+                            </el-image>
                         </el-form-item>
                         
                     </el-col>
@@ -61,7 +64,8 @@
                 <el-row>
                     <el-col :span="6">
                         <el-form-item label="卡片图" class="form-lable">
-                            <el-upload
+                            <el-input v-model="personForm.backPic" @blur="showBackImg(personForm.backPic)" class="form-input"></el-input>
+                            <!-- <el-upload
                             class="avatar-uploader"
                             action="https://jsonplaceholder.typicode.com/posts/"
                             :show-file-list="false"
@@ -69,7 +73,9 @@
                             :before-upload="beforeCardUpload">
                             <img v-if="personForm.cardImgUrl" :src="personForm.cardImgUrl" class="card-img">
                             <i v-else class="el-icon-plus card-uploader-icon"></i>
-                            </el-upload>
+                            </el-upload> -->
+                            <el-image v-if="personForm.backPicShow" :src="personForm.backPicShow" class="card-img">
+                            </el-image>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -84,6 +90,7 @@
 </template>
 
 <script>
+import { addPersonCard } from "@/api/getData";
 export default {
     
     data(){
@@ -94,11 +101,12 @@ export default {
                 hometown:'',
                 family:'',
                 tag:'',
-                loveSelf:'',
-                imageUrl: '',
-                cardImgUrl:''
+                briefIntroduction:'',
+                headPic: '',
+                backPic:'',
+                headPicShow:'',
+                backPicShow:''
             },
-            
         }
     },
     mounted(){
@@ -140,6 +148,15 @@ export default {
       submitPerson:function(){
           console.log("submit")
           console.log(this.personForm)
+          addPersonCard(this.personForm)
+      },
+      showHeadImg:function(url) {
+          console.log(url)
+          this.personForm.headPicShow = url
+      },
+      showBackImg:function(url) {
+          console.log(url)
+          this.personForm.backPicShow = url
       }
     }
 }
@@ -184,7 +201,7 @@ export default {
         text-align: center;
     }
     .card-img {
-        width: 134px;
+        width: 75px;
         height: 100px;
         display: block;
     }

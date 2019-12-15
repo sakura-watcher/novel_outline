@@ -17,7 +17,7 @@
                     <el-col>
                       <el-col :span="24"><span>参与人：</span>
                       <span>
-                        <el-tag v-for="tag in timeline.persons" :key="tag" :type="tag" style="margin-right:10px">{{tag}}</el-tag>
+                        <el-tag v-for="tag in timeline.players" :key="tag" :type="tag" style="margin-right:10px">{{tag}}</el-tag>
                       </span>
                     </el-col>
                     </el-col>
@@ -29,44 +29,113 @@
                   </el-row>
                   <el-row class="event-into">
                     <el-col>
-                      <el-col :span="24"><span>详情：</span><span>heh </span></el-col>
+                      <el-col :span="24"><span>详情：</span><span>{{timeline.detailIntro}}</span></el-col>
                     </el-col>
                   </el-row>
                 </el-col>
                 <el-col :span="8">
-                  <el-image
-                          style="width:250px;height:250px"
-                          :src="timeline.src"
-                          fit="fill"></el-image>
+                  <el-image :src="timeline.eventPic" class="event-img"></el-image>
                 </el-col>
               </el-row>
             </el-card>
           </el-timeline-item>
         </el-timeline>
+        <el-button type="primary" icon="el-icon-plus" circle size="mini" @click="dialogEventVisible=true"></el-button>
       </div>
     </el-main>
+    <el-dialog title="新增对话" :visible.sync="dialogEventVisible" custom-class="add-dialog">
+            <el-form :model="eventModel" ref="eventModel" class="event-form" label-position="left">
+                <el-form-item label="事件" class="title-label" >
+                    <el-input v-model="eventModel.event" autocomplete="off" class="title-input"></el-input>
+                </el-form-item>
+                <el-form-item label="事件序列" class="title-label" >
+                    <el-input v-model="eventModel.occurSequence" autocomplete="off" class="title-input"></el-input>
+                </el-form-item>
+                <el-form-item label="时期" class="title-label" >
+                    <el-input v-model="eventModel.occurPeriod" autocomplete="off" class="title-input"></el-input>
+                </el-form-item>
+                <el-form-item label="参与人" class="content-label" >
+                    <el-input v-model="eventModel.players" autocomplete="off" class="content-input"></el-input>
+                </el-form-item>
+                <el-form-item label="简介" class="content-label" >
+                    <el-input type="textarea" autosize v-model="eventModel.briefIntro" autocomplete="off" class="content-input"></el-input>
+                </el-form-item>
+                <el-form-item label="详情" class="content-label" >
+                    <el-input type="textarea" autosize v-model="eventModel.detailIntro" autocomplete="off" class="content-input"></el-input>
+                </el-form-item>
+                <el-form-item label="图片" class="content-label" >
+                    <el-input v-model="eventModel.eventPic" autocomplete="off" @blur="showHeadImg(eventModel.eventPic)" class="content-input"></el-input>
+                    <el-image v-if="eventModel.eventPicShow" :src="eventModel.eventPicShow" class="avatar"></el-image>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogSpeechVisible = false">取 消</el-button>
+                <el-button type="primary" @click="addEvent">确 定</el-button>
+            </div>
+        </el-dialog>
   </el-container>
 </template>
 
 
 
 <script>
+import { findTimeLineList,addTimeLineEvent } from "@/api/getData";
 export default {
+  inject:['reload'],
   data(){
     return{
       timelines:[
-        {id:1,event:"万寿庆典",occurPeriod:"黎明纪元",persons:["耀","夜","冰","璃"],
+        {id:1,event:"万寿庆典",occurPeriod:"黎明纪元",players:["耀","夜","冰","璃"],
         briefIntro:"弑神者-影在庆典上用莫忘将神杀死在王座",
-        src:"https://pic3.zhimg.com/80/v2-e93e9ef44ac088e90a0baa3d4e635303_hd.jpg"},
-        {id:1,event:"万寿庆典",occurPeriod:"黎明纪元",persons:["耀","夜","冰","璃"],
+        eventPic:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573353680&di=72e6cf7e8a3a2d6b26edde6f88f7df78&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F26%2F20120526161530_k5CTS.jpeg"},
+        {id:2,event:"万寿庆典",occurPeriod:"黎明纪元",players:["耀","夜","冰","璃"],
         briefIntro:"弑神者-影在庆典上用莫忘将神杀死在王座",
-        src:"https://pic3.zhimg.com/80/v2-e93e9ef44ac088e90a0baa3d4e635303_hd.jpg"},
-        {id:1,event:"万寿庆典",occurPeriod:"黎明纪元",persons:["耀","夜","冰","璃"],
+        eventPic:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573353680&di=72e6cf7e8a3a2d6b26edde6f88f7df78&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F26%2F20120526161530_k5CTS.jpeg"},
+        {id:3,event:"万寿庆典",occurPeriod:"黎明纪元",players:["耀","夜","冰","璃"],
         briefIntro:"弑神者-影在庆典上用莫忘将神杀死在王座",
-        src:"https://pic3.zhimg.com/80/v2-e93e9ef44ac088e90a0baa3d4e635303_hd.jpg"}
-      ]
+        eventPic:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573353680&di=72e6cf7e8a3a2d6b26edde6f88f7df78&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F26%2F20120526161530_k5CTS.jpeg"}
+      ],
+      dialogEventVisible:false,
+      eventModel:{
+        event:"",occurPeriod:"",occurSequence:"",players:"",briefIntro:"",detailIntro:"",eventPic:"",eventPicShow:""
+      }
     }
-  }
+  },
+  created(){
+      console.log("create")
+      this.getList()
+  },
+  methods: {
+      async getList(){
+          const timeLineList= await findTimeLineList();
+          console.log(timeLineList)
+          this.timelines = timeLineList
+      },
+      showHeadImg:function(url) {
+          console.log(url)
+          this.eventModel.eventPicShow = url
+      },
+      async addEvent() {
+        const response = await addTimeLineEvent(this.eventModel)
+        console.log(response)
+        if(response==1){
+          this.$message({
+            showClose: true,
+            message: '添加成功',
+            type: 'success'
+          });
+          this.dialogEventVisible = false
+          this.reload()
+        }else{
+          this.$message({
+            showClose: true,
+            message: '添加失败',
+            type: 'error'
+          });
+        }
+      }
+  },
 }
 </script>
 
@@ -76,6 +145,27 @@ export default {
   }
   .event-into{
     margin: 15px
+  }
+  .avatar{  
+    width: 100px;
+    height: 100px;
+  }
+  .event-img{
+    width: 350px;
+
+  }
+</style>
+
+<style>
+  .event-form .el-form-item__content{
+    float: left;
+    width:500px
+  }
+  .title-lable .el-form-item__content{
+    width: 40%
+  }
+  .content-label.el-form-item__content{
+    width:500px
   }
 </style>
 

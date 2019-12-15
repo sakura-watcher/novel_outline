@@ -1,6 +1,6 @@
 import fetch from '@/config/fetch'
 
-export const addPersonCard = data => fetch('/novelPersonCard/show',data,"post");
+export const addPersonCard = data => fetch('/novelPersonCard/addPersonCard',data,"post");
 
 export const getPersonCardAndImgList = data => fetch('/novelPersonCard/getPersonCardAndImgList',data,"post");
 
@@ -17,4 +17,8 @@ export const findMovieDetail = data => fetch('/novelExcerptSpace/findMovieDetail
 export const findFrameworkCardList = data => fetch('/novelFramework/findFrameworkCardList',data);
 
 export const findNoteDetail = data => fetch('/novelFramework/findNoteDetail',data);
+
+export const findTimeLineList = data => fetch('/novelTimeAxis/findList',data);
+
+export const addTimeLineEvent = data => fetch('/novelTimeAxis/addEvent',data,"post");
 
