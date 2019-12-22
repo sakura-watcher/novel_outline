@@ -22,3 +22,7 @@ export const findTimeLineList = data => fetch('/novelTimeAxis/findList',data);
 
 export const addTimeLineEvent = data => fetch('/novelTimeAxis/addEvent',data,"post");
 
+export const getCategoryList = data => fetch('/novelCard/findCategoryList',data);
+
+export const getCardDetail = data => fetch('/novelCard/getCardDetail',data);
+
