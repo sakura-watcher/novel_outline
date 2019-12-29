@@ -7,7 +7,7 @@
 				text-color="#fff"
 				active-text-color="#ffd04b"
 				:unique-opened="true" 
-				style="height:1600px" router>
+				style="height:100vh" router>
 					<el-menu-item index="manage"><i class="el-icon-s-home" style="margin-left:-20%"></i>首页</el-menu-item>
 					<el-submenu index="2">
 						<template slot="title"><i class="el-icon-edit-outline" style="margin-left:-20%"></i>提纲区</template>

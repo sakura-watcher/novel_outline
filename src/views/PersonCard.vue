@@ -1,6 +1,6 @@
 <template>
     <div style="background-color='#dab679'">
-        <el-container >
+        <el-container class="person-card-all">
             <el-header>人物卡片集</el-header>
             <el-container >
                 <!-- is="HeadImg" v-for="value in values" :key="value.id" :headValue="value.value" -->
@@ -15,14 +15,18 @@
                         </el-carousel-item>
                     </el-carousel>
                     <el-container>
-                        <el-header>head</el-header>
-                        <el-main>
-                            <div>
-                                main
-                            </div>
+                        <el-header>
+                            <el-button type="primary" @click="addOneMore">再整一个</el-button>
+                        </el-header>
+                        <el-main >
+                            <el-card class="sub-person-card" v-for="subPersonCard in subPersonCards" :key="subPersonCard.id" >
+                                <el-image class="sub-person-img"
+                                    :src="subPersonCard.src"
+                                    fit="fill"></el-image>
+                            </el-card>
                         </el-main>
                         <el-footer>
-                            <el-button type="primary" @click="addOneMore">再整一个</el-button>
+                            
                         </el-footer>
                     </el-container>
                 </el-aside>
@@ -30,7 +34,7 @@
                 <el-container style="width:100%;">
                     
                     <!-- 基本信息 -->
-                    <el-header style="width: 100%; height: 200px">
+                    <el-header  class="person-card-head" style="height:200px">
                         <el-container>
                             <!-- <el-header style="height: 10px">基本信息</el-header>
                             <el-divider></el-divider> -->
@@ -66,7 +70,7 @@
                             </el-main>
                         </el-container>
                     </el-header>
-                    <el-container class="word-container">
+                    <el-container class="person-card-word">
                         <el-header style="height: 30px;line-height:30px">
                             原话
                             <el-button type="primary" icon="el-icon-plus" circle size="mini" @click="dialogSpeechVisible=true"></el-button>
@@ -80,7 +84,7 @@
                             </el-collapse>
                         </el-main>
                     </el-container>
-                    <el-container class="event-container">
+                    <el-container class="person-card-event">
                         <el-header style="height: 30px;line-height:30px">
                             经历
                             <el-button type="primary" icon="el-icon-plus" circle size="mini" @click="dialogBiographyVisible=true"></el-button>
@@ -141,6 +145,15 @@ import { getPersonCardAndImgList, getPersonCardById, addSpeech, addBiography } f
 export default {
     data(){
         return{
+            subPersonCards:[
+                {id:1,name:"耀夜冰璃",src:"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2944077246,3614977379&fm=26&gp=0.jpg"},
+                {id:2,name:"耀夜冰璃",src:"https://pic1.zhimg.com/80/v2-01a916031601d9195e141811f19b8ba2_hd.jpg"},
+                {id:3,name:"耀夜冰璃",src:"https://pic1.zhimg.com/80/v2-01a916031601d9195e141811f19b8ba2_hd.jpg"},
+                {id:4,name:"耀夜冰璃",src:"https://pic1.zhimg.com/80/v2-01a916031601d9195e141811f19b8ba2_hd.jpg"},
+                {id:5,name:"耀夜冰璃",src:"https://pic1.zhimg.com/80/v2-01a916031601d9195e141811f19b8ba2_hd.jpg"},
+                {id:6,name:"耀夜冰璃",src:"https://pic1.zhimg.com/80/v2-01a916031601d9195e141811f19b8ba2_hd.jpg"},
+                {id:7,name:"耀夜冰璃",src:"https://pic1.zhimg.com/80/v2-01a916031601d9195e141811f19b8ba2_hd.jpg"}
+            ],
             values:[
                 {id:1,value:"耀"},
                 {id:1,value:"耀"},
@@ -211,6 +224,7 @@ export default {
             console.log(personCardByDb)
             this.personCard = personCardByDb
             this.personPicList = personCardByDb.personPicList
+            this.subPersonCards = personCardByDb.subCardList
             this.personId = personCardByDb.id
         },
         async changeHeadImg(index,preIndex){
@@ -297,11 +311,11 @@ export default {
   .event-card{
       text-align: left
   }
-  .word-container{
+  .person-card-word{
       margin-top: 30px;
       height: 300px
   }
-  .event-container{
+  .person-card-event{
       margin-top: 30px;
       /* height: 530px; */
   }
@@ -323,5 +337,63 @@ export default {
   .add-dialog{
       width: 37.5%
   }
+  .sub-person-card{
+      width: 75px;
+      height: 100px;
+      float: left;
+      margin-left: 9px;
+      background-color: #042a3d;
+      border: 0px solid #1e2433;
+  }
+  .sub-person-img{
+      width: 75px;
+      height: 100px;
+  }
+  .person-card-all{
+      color: #c97e50;
+      background-color: #042a3d
+  }
+  .person-card-head{
+      width: 100%;
+      height: 200px;
+  }
   
+</style>
+
+<style>
+    .person-card-head .el-divider{
+        background-color:#c97e50
+    }
+    .sub-person-card .el-card__body{
+        padding:0px;
+    }
+    .person-card-word .el-collapse-item__header{
+        background-color: #042a3d;
+        color: #c97e50;
+        border-bottom: 1px solid #af6a4a;
+    }
+    .person-card-word .el-collapse{
+        border-top: 1px solid #af6a4a;
+        border-bottom: 0px solid #EBEEF5;
+    }
+    .person-card-word .el-collapse-item__wrap{
+        border-bottom: 1px solid #ffa02b;
+    }
+    .person-card-word .el-collapse-item__content{
+        color: #ffa02b;
+    }
+    .person-card-event .el-divider{
+        background-color: #042a3d;
+    }
+    .person-card-event .el-timeline-item__node{
+        background-color: #c97e50;
+    }
+    .person-card-event .el-card{
+        color: #c97e50; 
+        background-color: #042a3d;
+        border: 1px solid #c97e50;
+    }
+    .person-card-event .el-timeline-item__tail{
+        border-left: 2px solid #c97e50;
+    }
 </style>

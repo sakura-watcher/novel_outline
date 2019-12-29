@@ -1,6 +1,62 @@
 <template>
   <el-container>
-    <el-header style="height:10px">时光轴</el-header>
+    <el-header >
+      <div class="little-timeline">
+        <div class="little-timeline-epoch" >
+          <table>
+            <tr>
+              <td v-for="(timeline,index) in timelines" :key="timeline.id">
+                <el-popover placement="bottom-start" 
+                    title="事件"
+                    width="200"
+                    trigger="click">
+                    <div class="block">
+                      <el-timeline>
+                        <el-timeline-item v-for="event in events" :key="event.id" :hide-timestamp="true">
+                          {{event.title}}
+                        </el-timeline-item>
+                      </el-timeline>
+                    </div>
+                  <div class="timeline-head" slot="reference" :style="{background:colorList[index]}" ></div>
+                </el-popover>
+              </td>
+            </tr>
+            <tr>
+              <td v-for="(timeline,index) in timelines" :key="timeline.id">
+                <div class="timeline-period" :style="{color:colorList[index]}">{{timeline.occurPeriod}}</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="little-timeline-event" >
+          <table>
+            <tr>
+              <td v-for="(timeline,index) in timelines" :key="timeline.id">
+                <el-popover placement="bottom-start" 
+                    title="事件"
+                    width="200"
+                    trigger="click">
+                    <div class="block">
+                      <el-timeline>
+                        <el-timeline-item v-for="event in events" :key="event.id" :hide-timestamp="true">
+                          {{event.title}}
+                        </el-timeline-item>
+                      </el-timeline>
+                    </div>
+                  <div class="timeline-head" slot="reference" :style="{background:colorList[index]}" ></div>
+                </el-popover>
+              </td>
+            </tr>
+            <tr>
+              <td v-for="(timeline,index) in timelines" :key="timeline.id">
+                <div class="timeline-period" :style="{color:colorList[index]}">{{timeline.occurPeriod}}</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+    </el-header>
     <el-main>
       <div class="block">
         <el-timeline>
@@ -85,10 +141,14 @@ export default {
   inject:['reload'],
   data(){
     return{
+      events:[{id:1,title:"凛冬将至"},{id:2,title:"国王大道"},{id:3,title:"雪诺大人"},
+      {id:4,title:"残缺之躯"},{id:5,title:"狼狮之争"}],
+      colorList:["#ed5f00","#f96b13","#e59d00","#e5d700","aae500","#23e500","#00e58f","#00cdde","#00a4de","#3c89ff","#6249ff",
+                "#9349ff","#b649ff","#e340ff","#ff4082"],
       timelines:[
-        {id:1,event:"万寿庆典",occurPeriod:"黎明纪元",players:["耀","夜","冰","璃"],
+        {id:1,event:"万寿庆典",occurPeriod:"古神纪元",players:["耀","夜","冰","璃"],
         briefIntro:"弑神者-影在庆典上用莫忘将神杀死在王座",
-        eventPic:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573353680&di=72e6cf7e8a3a2d6b26edde6f88f7df78&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F26%2F20120526161530_k5CTS.jpeg"},
+        eventPic:"https://timgsa.baidu.com/timg?image#e5d700&quality=80&size=b9999_10000&sec=1573353680&di=72e6cf7e8a3a2d6b26edde6f88f7df78&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F26%2F20120526161530_k5CTS.jpeg"},
         {id:2,event:"万寿庆典",occurPeriod:"黎明纪元",players:["耀","夜","冰","璃"],
         briefIntro:"弑神者-影在庆典上用莫忘将神杀死在王座",
         eventPic:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573353680&di=72e6cf7e8a3a2d6b26edde6f88f7df78&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201205%2F26%2F20120526161530_k5CTS.jpeg"},
@@ -153,6 +213,22 @@ export default {
   .event-img{
     width: 350px;
 
+  }
+  .little-timeline{
+    background-color: black
+  }
+  .little-timeline-event{
+    margin-top: 10px;
+  }
+  .timeline-head{
+    width: 100px;
+    height: 5px;
+    background-color: aqua
+  }
+  .timeline-period{
+    text-align: left;
+    font-size: 12px;
+    color:  aqua;
   }
 </style>
 
