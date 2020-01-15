@@ -9,63 +9,89 @@
 
 
 <script>
+import { getPersonRelationByFamily } from "@/api/getData";
 export default {
     data(){
         return{
-
+            src:'../assets/git-logo.png',
+            personRelation:{
+                nodeList:[],
+                linkeList:[],
+                categoryList:[]
+            }
         }
     },
     mounted(){
-        this.initGraph()
+        console.log("sss")
+        this.getPersonRelationByFamily(1)
     },
     methods: {
+        async getPersonRelationByFamily(id){
+            const personRelation = await getPersonRelationByFamily({familyId:id})
+            console.log(personRelation)
+            this.personRelation = personRelation
+            this.initGraph()
+        },
         initGraph:function(){
             var echarts = require('echarts')
             var myChart = echarts.init(document.getElementById('gragh'))
            
-            var nodes = [
-                {name: '奈德·史塔克',x: 20,y: 0,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=245688539,3452881016&fm=26&gp=0.jpg'},
-                {name: '凯特琳·徒利',x: 40,y: 0,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=226192131,3705046365&fm=26&gp=0.jpg'},
-                {name: '罗伯·史塔克',x: 10,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=690058946,1108310881&fm=26&gp=0.jpg'},
-                {name: '珊莎·史塔克',x: 20,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4050759229,2291201342&fm=26&gp=0.jpg'},
-                {name: '艾丽娅·史塔克',x: 30,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2454742065,4042994382&fm=26&gp=0.jpg'},
-                {name: '布兰·史塔克',x: 40,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1166651394,1245786560&fm=26&gp=0.jpg'},
-                {name: '瑞肯·史塔克',x: 50,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2666480232,3477728990&fm=26&gp=0.jpg'},
+            // var nodes = [
+            //     {name: '奈德·史塔克',x: 20,y: 0,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=245688539,3452881016&fm=26&gp=0.jpg'},
+            //     {name: '凯特琳·徒利',x: 40,y: 0,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=226192131,3705046365&fm=26&gp=0.jpg'},
+            //     {name: '罗伯·史塔克',x: 10,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=690058946,1108310881&fm=26&gp=0.jpg'},
+            //     {name: '珊莎·史塔克',x: 20,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4050759229,2291201342&fm=26&gp=0.jpg'},
+            //     {name: '艾丽娅·史塔克',x: 30,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2454742065,4042994382&fm=26&gp=0.jpg'},
+            //     {name: '布兰·史塔克',x: 40,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1166651394,1245786560&fm=26&gp=0.jpg'},
+            //     {name: '瑞肯·史塔克',x: 50,y: 20,value: "",categorie:0,symbolSize:100,symbol:'image://https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2666480232,3477728990&fm=26&gp=0.jpg'},
 
-                {name: '泰温·兰尼斯特',x: 70,y: 0,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=245688539,3452881016&fm=26&gp=0.jpg'},
-                {name: '詹姆·兰尼斯特',x: 60,y: 20,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=690058946,1108310881&fm=26&gp=0.jpg'},
-                {name: '提利昂·兰尼斯特',x: 70,y: 20,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4050759229,2291201342&fm=26&gp=0.jpg'},
-                {name: '瑟曦·兰尼斯特',x: 80,y: 20,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2454742065,4042994382&fm=26&gp=0.jpg'},
+            //     {name: '泰温·兰尼斯特',x: 70,y: 0,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=245688539,3452881016&fm=26&gp=0.jpg'},
+            //     {name: '詹姆·兰尼斯特',x: 60,y: 20,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=690058946,1108310881&fm=26&gp=0.jpg'},
+            //     {name: '提利昂·兰尼斯特',x: 70,y: 20,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4050759229,2291201342&fm=26&gp=0.jpg'},
+            //     {name: '瑟曦·兰尼斯特',x: 80,y: 20,value: "",categorie:1,symbolSize:100,symbol:'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2454742065,4042994382&fm=26&gp=0.jpg'},
+            // ]
+            // var links = [
+            //     {source: '奈德·史塔克',target: '凯特琳·徒利',intro:'夫妻'},
+            //     {source: '奈德·史塔克',target: '罗伯·史塔克',intro:'长子'},
+            //     {source: '奈德·史塔克',target: '珊莎·史塔克',intro:'长女'},
+            //     {source: '奈德·史塔克',target: '艾丽娅·史塔克',intro:'次女'},
+            //     {source: '奈德·史塔克',target: '布兰·史塔克',intro:'次子'},
+            //     {source: '奈德·史塔克',target: '瑞肯·史塔克',intro:'幼子'},
+            //     {source: '泰温·兰尼斯特',target: '詹姆·兰尼斯特',intro:'长子'},
+            //     {source: '泰温·兰尼斯特',target: '提利昂·兰尼斯特',intro:'幼子'},
+            //     {source: '泰温·兰尼斯特',target: '瑟曦·兰尼斯特',intro:'女儿'},
+            // ]
+            var nodes = [
+                {id:'1',name: '奈德·史塔克',x: 20,y: 1.000,categorie:0,symbolSize:100,symbol:'image://../../img/icons/git-logo.png'},
+                {id:'2',name: '凯特琳·徒利',x: 100,y: 1.001,categorie:0,symbolSize:100,symbol:'image://../../img/icons/git-logo.png'},
+                {id:'3',name: '罗伯·史塔克',x: 100,y: 100,categorie:0,symbolSize:100,symbol:'image://../../img/icons/git-logo.png'},
+                // {id:'5',name: '夫妻',x: 110,y: 1,value: "",categorie:0,symbolSize:50,symbol:'image://../../img/icons/true.jpg',
+                // label:{
+                //     position:'inside'
+                // }},
+                // {id:'6',name: '长子',x: 110,y: 100,value: "",categorie:0,symbolSize:50,symbol:'image://../../img/icons/git-logo.png',
+                // label:{
+                //     position:'inside'
+                // }},
             ]
             var links = [
-                {source: '奈德·史塔克',target: '凯特琳·徒利',intro:'夫妻'},
-                {source: '奈德·史塔克',target: '罗伯·史塔克',intro:'长子'},
-                {source: '奈德·史塔克',target: '珊莎·史塔克',intro:'长女'},
-                {source: '奈德·史塔克',target: '艾丽娅·史塔克',intro:'次女'},
-                {source: '奈德·史塔克',target: '布兰·史塔克',intro:'次子'},
-                {source: '奈德·史塔克',target: '瑞肯·史塔克',intro:'幼子'},
-                {source: '泰温·兰尼斯特',target: '詹姆·兰尼斯特',intro:'长子'},
-                {source: '泰温·兰尼斯特',target: '提利昂·兰尼斯特',intro:'幼子'},
-                {source: '泰温·兰尼斯特',target: '瑟曦·兰尼斯特',intro:'女儿'},
+                // {source: '1',target: '5'},
+                // {source: '5',target: '2',symbol: ['', 'arrow'],symbolSize:20},
+                // {source: '1',target: '6'},
+                // {source: '6',target: '3'}
+                {source: '1',target: '2',intro:'妻子'},
+                {source: '1',target: '3',intro:'长子'},
             ]
             var categories = [
-                {name:"史塔克",icon:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2673175868,2732101001&fm=26&gp=0.jpg',
-                textStyle: { color:'white',fontSize:18}},
-                {name:"兰尼斯特",icon:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2673175868,2732101001&fm=26&gp=0.jpg',
-                textStyle: { color:'white',fontSize:18}}
-            ]
-            var mark = [
-                {name:'标记',coord: [30, 5]}
+                {name:"史塔克",icon:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2673175868,2732101001&fm=26&gp=0.jpg'},
+                {name:"兰尼斯特",icon:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2673175868,2732101001&fm=26&gp=0.jpg'}
             ]
 
+            nodes = this.personRelation.nodeList
+            links = this.personRelation.linkeList
+            categories = this.personRelation.categoryList
+
             var option = {
-                title: {
-                    text: 'Les Miserables',
-                    subtext: 'Default layout',
-                    top: 'bottom',
-                    left: 'right'
-                },
-                tooltip: {},
                 
                 legend: [{
                     selectedMode: 'single',
@@ -74,31 +100,21 @@ export default {
                     width:50,
                     right:0,
                     height:50,
-                    data: categories
+                    data: categories,
+                    textStyle: { color:'white',fontSize:18}
                 }],
                 animationDuration: 1500,
                 animationEasingUpdate: 'quinticInOut',
                 series : [
                     {
                         name: 'Les Miserables',
-                        intro:'aaa00',
                         type: 'graph',
                         layout: 'none',
                         data: nodes,
                         links: links,
                         categories: categories,
                         roam: true,
-                        focusNodeAdjacency: true,
-                        markPoint:{
-                            data:mark,
-                            symbol:'image://https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=591086854,2473990089&fm=26&gp=0.jpg',
-                            label:{
-                                formatter:function(param){
-                                    return '{a|'+param.data.name+'}'
-                                },
-                            },
-                            symbolKeepAspect:true,
-                       },
+                        focusNodeAdjacency: false,
                         itemStyle: {
                             normal: {
                                 borderColor: '#b457ff',
@@ -113,11 +129,10 @@ export default {
                             position: 'insideBottom',
                             formatter: '{b}'
                         },
-                        // edgeSymbol: ['', 'arrow'],
-                        // edgeSymbolSize :20,
+                        edgeSymbol: ['', 'arrow'],
+                        edgeSymbolSize :20,
                         edgeLabel:{
                             show:true,
-                            formatter:'{a}', 
                             formatter:function(param){
                                 return '{a|'+param.data.intro+'}'
                             },
@@ -125,14 +140,15 @@ export default {
                                 a:{
                                     align:'center',
                                     verticalAlign:'center',
-                                    backgroundColor:'white',
+                                    backgroundColor:'#ffffff',
+                                    borderColor:"red",
+                                    borderWidth:1,
                                     borderRadius:10,
                                     fontSize: 18,
                                     fontFamily: 'Microsoft YaHei',
                                     color: 'black',
-                                    // lineHeight: 0,
-                                    // shadowOffsetY :110,
-                                    // padding:[0,10,0,10],
+                                    lineHeight: 0,
+                                    padding:[5,5,5,5],
                                 }
                             }
                         },
@@ -165,29 +181,30 @@ export default {
                     }
                 ]
             };
-            myChart.setOption(option)
-        },
-        getImgData:function(imgSrc, radius, center = { x: 0, y: 0}){
-            return new Promise((resolve) => {
-                const canvas = document.createElement('canvas');
-                const contex = canvas.getContext('2d');
-                const img = new Image();
-                img.crossOrigin = '';
-                const diameter = 2 * radius;
-                img.onload = function() {
-                    canvas.width = diameter;
-                    canvas.height = diameter;
-                    contex.clearRect(0, 0, diameter, diameter);
-                    contex.save();
-                    contex.beginPath();
-                    contex.arc(radius, radius, radius, 0, 2 * Math.PI); //画出圆
-                    contex.clip(); //裁剪上面的圆形
-                    contex.drawImage(img, center.x - radius, center.y - radius, diameter, diameter, 0, 0, diameter, diameter); // 在刚刚裁剪的园上画图
-                    contex.restore(); // 还原状态
-                    resolve(canvas.toDataURL('image/png', 1))
-                }
-                img.src = imgSrc;
+            myChart.setOption(option);
+
+            myChart.on('graphroam', (params)=>{
+                console.log(params)
+                console.log(params.zoom)
+                var op = myChart.getOption()
+                var zoom = op.series[0].zoom
+                console.log(zoom)
+                op.series[0].label.fontSize = 12*zoom
+                op.series[0].edgeLabel.rich.a.fontSize = 12*zoom
+                console.log(op)
+                myChart.setOption(op)
             })
+
+            myChart.on('click', function (params) {
+                console.log("click node")
+                console.log(params);
+                if(params.dataType == "node"){
+                    //节点
+                }else if(params.dataType == "edge"){
+                    //边
+                }
+            });
+
         }   
     },
 }

@@ -26,7 +26,7 @@ export default new Router({
             component: () => import('@/views/Timeline.vue')
         },
         {
-          path: '/personRelation',
+          path: '/',
           name: 'personRelation',
           component: () => import('@/views/PersonRelation.vue'),
         },

@@ -26,3 +26,5 @@ export const getCategoryList = data => fetch('/novelCard/findCategoryList',data)
 
 export const getCardDetail = data => fetch('/novelCard/getCardDetail',data);
 
+export const getPersonRelationByFamily = data => fetch('/novelPersonRelation/getPersonRelationByFamily',data);
+
