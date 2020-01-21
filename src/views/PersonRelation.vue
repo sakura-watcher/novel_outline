@@ -86,10 +86,15 @@ export default {
                 {name:"史塔克",icon:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2673175868,2732101001&fm=26&gp=0.jpg'},
                 {name:"兰尼斯特",icon:'image://https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2673175868,2732101001&fm=26&gp=0.jpg'}
             ]
-
+            console.log(nodes)
+            console.log(links)
+            console.log(categories)
             nodes = this.personRelation.nodeList
-            links = this.personRelation.linkeList
+            links = this.personRelation.linkList
             categories = this.personRelation.categoryList
+            console.log(nodes)
+            console.log(links)
+            console.log(categories)
 
             var option = {
                 
