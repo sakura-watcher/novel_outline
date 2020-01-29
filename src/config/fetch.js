@@ -3,7 +3,7 @@ export default async(url = '', data = {}, type = 'GET', method = 'fetch') => {
 	type = type.toUpperCase();
 	//处理url???
 	// url = "http://192.168.1.102:8080"+url
-	url = "http://192.168.1.102:8080"+url
+	url = "http://192.168.4.216:8080"+url
 	if (type == 'GET') {
 		let dataStr = ''; //数据拼接字符串
 		Object.keys(data).forEach(key => {
